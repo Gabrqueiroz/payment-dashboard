@@ -4,35 +4,52 @@ import {
   Button,
   Stack,
   CircularProgress,
+  Typography,
+  Link,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-import { Link as RouterLink } from "react-router-dom";
-import { Typography, Link } from "@mui/material";
+const RegisterForm = () => {
+  const navigate = useNavigate();
 
-const LoginForm = () => {
-  const navigate = useNavigate(); // 👈 FALTAVA ISSO
-
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      console.log("Login com:", { email, password });
+      await axios.post("http://localhost:8080/users", {
+        fullName,
+        email,
+        password,
+      });
+
+      alert("Conta criada com sucesso!");
+      navigate("/login");
     } catch (error) {
-      console.error("Erro no login", error);
+      console.error("Erro ao registrar", error);
+      alert("Erro ao criar conta");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleLogin}>
+    <form onSubmit={handleRegister}>
       <Stack spacing={2}>
+        <TextField
+          label="Nome completo"
+          fullWidth
+          value={fullName}
+          onChange={(e) => setFullName(e.target.value)}
+          required
+        />
+
         <TextField
           label="Email"
           type="email"
@@ -57,13 +74,13 @@ const LoginForm = () => {
           size="large"
           disabled={loading}
         >
-          {loading ? <CircularProgress size={24} color="inherit" /> : "Entrar"}
+          {loading ? <CircularProgress size={24} color="inherit" /> : "Cadastrar"}
         </Button>
 
         <Typography variant="body2" textAlign="center">
-          Não tem uma conta?{" "}
-          <Link component="button" variant="body2" onClick={() => navigate("/register")}>
-            Criar conta
+          Já tem uma conta?{" "}
+          <Link component="button" onClick={() => navigate("/login")}>
+            Fazer login
           </Link>
         </Typography>
       </Stack>
@@ -71,4 +88,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default RegisterForm;

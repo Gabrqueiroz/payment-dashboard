@@ -5,12 +5,8 @@ import AppRoutes from "./routes/AppRoutes";
 
 function App() {
 
-  return (
-    <>
-        return <AppRoutes />;
-
-    </>
-  
+return (
+   <AppRoutes />
 )
 }
 

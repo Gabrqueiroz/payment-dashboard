@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "@/pages/Login";
-// depois você vai adicionar Dashboard aqui
+import Register from "@/pages/Register";
 
 const AppRoutes = () => {
   return (
@@ -8,6 +8,7 @@ const AppRoutes = () => {
       <Routes>
         <Route path="/" element={<Login />} />  
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
         {/* Futuras rotas protegidas */}
         {/* <Route path="/dashboard" element={<Dashboard />} /> */}
