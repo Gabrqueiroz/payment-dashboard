@@ -1,73 +1,109 @@
-# React + TypeScript + Vite
+# 💳 Payment Dashboard — Digital Banking Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Interface web desenvolvida em React + TypeScript + Vite que simula o painel de um banco digital, permitindo autenticação de usuários e visualização de informações financeiras integradas à Payment API.
 
-Currently, two official plugins are available:
+O projeto foi construído com foco em arquitetura frontend escalável, organização de código e boas práticas modernas de desenvolvimento, servindo como demonstração técnica de um sistema financeiro completo (frontend + backend).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# 🧠 Conceitos e Boas Práticas Demonstradas
 
-## React Compiler
+✔ Arquitetura de pastas escalável (pages, components, services, hooks)
+✔ Separação entre componentes globais e componentes de página
+✔ Tipagem forte com TypeScript
+✔ Consumo de API REST com camada de services
+✔ Gerenciamento de rotas com React Router
+✔ Estrutura pronta para autenticação com JWT
+✔ Uso de Material UI para interface profissional
+✔ Organização pensada para sistemas de médio/grande porte
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# 🎨 Prototipação do Projeto
 
-## Expanding the ESLint configuration
+# layout da aplicação foi baseado em um protótipo criado no Figma:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+🔗 https://www.figma.com/design/7DNneB8hEGVbkdxHPNpPiy/payment-dashboard?node-id=2-3&t=Kp9YyncXc924VwxY-0
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+# 🗺️ Estrutura do Projeto
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+src/
+│
+├── assets/          # Imagens e ícones
+├── components/      # Componentes reutilizáveis globais
+├── pages/           # Páginas da aplicação
+├── routes/          # Configuração de rotas
+├── services/        # Comunicação com a API
+├── hooks/           # Hooks customizados
+├── contexts/        # Contextos globais (Auth, etc)
+├── types/           # Tipagens globais
+├── utils/           # Funções utilitárias
+│
+├── App.tsx
+└── main.tsx
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+# ⚙️ Tecnologias Utilizadas
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+React 18
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+TypeScript
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Vite
+
+React Router DOM
+
+Material UI
+
+Axios (para integração com backend)
+
+# ⚙️ Como Rodar o Projeto
+✅ Pré-requisitos
+
+Antes de iniciar, você precisa ter instalado:
+
+Node.js 18 ou superior
+
+npm ou yarn
+
+Git
+
+# 📥 Clonar o Repositório
+git clone https://github.com/Gabrqueiroz/payment-dashboard.git
+cd payment-dashboard
+
+▶️ Instalar Dependências
+npm install
+
+▶️ Executar a Aplicação
+npm run dev
+
+
+O projeto estará disponível em:
+
+http://localhost:5173
+
+🔌 Integração com o Backend
+
+Este frontend consome a API do projeto:
+
+👉 Payment API (Spring Boot)
+Certifique-se de que o backend esteja rodando em:
+
+http://localhost:8080
+
+
+A comunicação entre frontend e backend é feita via serviços responsáveis pelas requisições HTTP.
+
+# 📈 Próximas Evoluções
+
+Autenticação com JWT e controle de sessão
+Dashboard com resumo financeiro
+Listagem de transações
+Transferências entre contas
+Proteção de rotas autenticadas
+Validações de formulário
+Testes de interface
+Deploy em nuvem (Vercel / Netlify)
+
+👨‍💻 Autor
+
+Gabriel Queiroz
+Frontend & Backend Developer — React | TypeScript | Java | Spring Boot
+
+|# Obs Projeto ainda está apenas em develop eo backend é o projeto payment-api
