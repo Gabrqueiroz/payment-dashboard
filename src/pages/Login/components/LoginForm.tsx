@@ -7,11 +7,10 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-import { Link as RouterLink } from "react-router-dom";
 import { Typography, Link } from "@mui/material";
 
 const LoginForm = () => {
-  const navigate = useNavigate(); // 👈 FALTAVA ISSO
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

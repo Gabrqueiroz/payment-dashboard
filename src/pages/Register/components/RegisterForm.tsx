@@ -5,10 +5,11 @@ import {
   Stack,
   CircularProgress,
   Typography,
-  Link,
+  MenuItem,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { createUser } from "../../../services/userService";
+import { createAccount } from "../../../services/accountService";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
@@ -16,6 +17,8 @@ const RegisterForm = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [agency, setAgency] = useState("0001");
+  const [accountType, setAccountType] = useState<"CHECKING" | "SAVINGS">("CHECKING");
   const [loading, setLoading] = useState(false);
 
   const handleRegister = async (e: React.FormEvent) => {
@@ -23,14 +26,24 @@ const RegisterForm = () => {
     setLoading(true);
 
     try {
-      await axios.post("http://localhost:8080/users", {
+      // 1️⃣ Cria o usuário
+      const user = await createUser({
         fullName,
         email,
         password,
       });
 
+      // 2️⃣ Cria a conta usando o UUID retornado
+      await createAccount({
+        userId: user.id,
+        agency,
+        accountType,
+        initialDeposit: 0,
+      });
+
       alert("Conta criada com sucesso!");
       navigate("/login");
+
     } catch (error) {
       console.error("Erro ao registrar", error);
       alert("Erro ao criar conta");
@@ -68,6 +81,27 @@ const RegisterForm = () => {
           required
         />
 
+        <TextField
+          label="Agência"
+          fullWidth
+          value={agency}
+          onChange={(e) => setAgency(e.target.value)}
+          required
+        />
+
+        <TextField
+          select
+          label="Tipo de Conta"
+          fullWidth
+          value={accountType}
+          onChange={(e) =>
+            setAccountType(e.target.value as "CHECKING" | "SAVINGS")
+          }
+        >
+          <MenuItem value="CHECKING">Corrente</MenuItem>
+          <MenuItem value="SAVINGS">Poupança</MenuItem>
+        </TextField>
+
         <Button
           type="submit"
           variant="contained"
@@ -79,9 +113,7 @@ const RegisterForm = () => {
 
         <Typography variant="body2" textAlign="center">
           Já tem uma conta?{" "}
-          <Link component="button" onClick={() => navigate("/login")}>
-            Fazer login
-          </Link>
+          <RouterLink to="/login">Fazer login</RouterLink>
         </Typography>
       </Stack>
     </form>
