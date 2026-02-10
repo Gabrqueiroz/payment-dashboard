@@ -10,9 +10,10 @@ export interface LoginRequest {
 }
 
 export interface AuthResponse {
-  id: string; // UUID vem como string
+  userId: string;      // ✅ nome certo agora
   fullName: string;
   email: string;
+  token: string | null;
   createdAt: string;
 }
 

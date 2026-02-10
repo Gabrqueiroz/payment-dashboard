@@ -5,37 +5,34 @@ import {
   Stack,
   CircularProgress,
   Typography,
-  Link,
-  Alert,
+  Link
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { login } from "../../../services/authService";
+import { login } from "@/services/authService";
+import { useAuth } from "@/contexts/AuthContext";
 
 const LoginForm = () => {
   const navigate = useNavigate();
+  const { signIn } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setError("");
 
     try {
-      const user = await login({ email, password });
+      const userData = await login({ email, password });
 
-      // salva usuário logado
-      localStorage.setItem("user", JSON.stringify(user));
+      console.log("Usuário logado:", userData);
 
-      console.log("Usuário logado:", user);
-
-      navigate("/dashboard");
-    } catch (err) {
-      console.error("Erro no login", err);
-      setError("Email ou senha inválidos");
+      signIn(userData);          // salva no contexto
+      navigate("/dashboard");   // 🔥 REDIRECIONA
+    } catch (error) {
+      console.error("Erro no login", error);
+      alert("Email ou senha inválidos");
     } finally {
       setLoading(false);
     }
@@ -44,9 +41,6 @@ const LoginForm = () => {
   return (
     <form onSubmit={handleLogin}>
       <Stack spacing={2}>
-
-        {error && <Alert severity="error">{error}</Alert>}
-
         <TextField
           label="Email"
           type="email"
@@ -65,12 +59,7 @@ const LoginForm = () => {
           required
         />
 
-        <Button
-          type="submit"
-          variant="contained"
-          size="large"
-          disabled={loading}
-        >
+        <Button type="submit" variant="contained" size="large" disabled={loading}>
           {loading ? <CircularProgress size={24} color="inherit" /> : "Entrar"}
         </Button>
 

@@ -1,16 +1,25 @@
-
 import { Box, Typography, Card, CardContent, Button, Stack } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const { user, signOut } = useAuth();
+
+  const handleLogout = () => {
+    signOut();
+    navigate("/login");
+  };
 
   return (
     <Box p={4} bgcolor="#f5f6fa" minHeight="100vh">
       {/* Header */}
-      <Box display="flex" justifyContent="space-between" mb={4}>
-        <Typography variant="h6">Olá, Gabriel</Typography>
-        <Button color="primary" onClick={() => console.log("logout")}>
+      <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
+        <Typography variant="h6">
+          Olá, {user?.fullName || "Usuário"}
+        </Typography>
+
+        <Button color="primary" onClick={handleLogout}>
           Sair
         </Button>
       </Box>
@@ -22,6 +31,7 @@ const Dashboard = () => {
             Conta
           </Typography>
 
+          {/* Temporário — depois vem da API */}
           <Typography variant="body1" mb={2}>
             Ag 0001 | CC 12345-6
           </Typography>
@@ -30,6 +40,7 @@ const Dashboard = () => {
             Saldo disponível
           </Typography>
 
+          {/* Temporário — depois vem da API */}
           <Typography variant="h4" color="success.main" fontWeight="bold">
             R$ 2.500,00
           </Typography>
